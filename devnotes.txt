@@ -1,0 +1,10 @@
+create a new project: npx tsdx create newlib
+then delete newlib/node_modules
+then in root run npm install
+
+don't install any other project, just import it.
+
+for changes to a project to appear in one which depends on it, rebuild the project then restart the extension host
+similarly for npm installs to affect auto error checking, restart the extension host
+
+rebuilding a package while React running will break with compilation error, needs to restart

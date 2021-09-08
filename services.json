@@ -1,0 +1,1 @@
+{"base":"http://localhost:3100/","chords":{"url-data":{"id":"url-data","newServices":[{"name":"rs-url-data","basePath":"/rs-data","source":"./services/data.rsm.json"}]}}}
