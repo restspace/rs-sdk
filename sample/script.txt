@@ -1,0 +1,3 @@
+npx create-react-app demo-blog --template typescript
+2 mins
+
