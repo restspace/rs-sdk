@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDataServiceList } from "@restspace/react-url-data";
-import { Post } from "./EditBlog";
+import { Post } from "../../serviceFiles/url-data-types/Post";
 
 export const Blog = () => {
-	const { isLoading, isError, data, error } = useDataServiceList('/posts', "items");
+	const { isLoading, isError, data, error } = useDataServiceList('/post', "items");
 	return (
 		<>
 		<div>Blog</div>

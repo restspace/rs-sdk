@@ -1,6 +1,6 @@
 import React from "react";
 import { rsService, isBodyInit, ListMode } from '@restspace/core';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 export function useServiceQuery(chordId: string, serviceName: string, path: string) {
   return useQuery(`${chordId}|${serviceName}|${path}`, async () => {
@@ -18,10 +18,13 @@ export function useServiceList<TMode extends ListMode>(chordId: string, serviceN
 }
 
 export function useServiceMutation(chordId: string, serviceName: string, path: string) {
+  const client = useQueryClient();
   return useMutation(async (data: any) => {
     const sendData = isBodyInit(data) ? data : JSON.stringify(data);
     const resp = await rsService.put(chordId, serviceName, path, sendData);
     if (!resp.ok) throw new Error(`Response error ${resp.status} ${resp.statusText}`);
+  }, {
+    onSuccess: () => client.invalidateQueries(`${chordId}|${serviceName}|${path}`)
   });
 }
 

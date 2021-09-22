@@ -1,6 +1,14 @@
 {
-	"version": "0.1.0",
+	"version": "0.1.2",
 	"license": "MIT",
+	"author": {
+		"name": "James Ellis-Jones",
+		"email": "james@restspace.io"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/restspace/rs-sdk/tree/master/core"
+	},
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
 	"files": [
@@ -31,7 +39,6 @@
 		"trailingComma": "es5"
 	},
 	"name": "@restspace/url-data",
-	"author": "DESKTOP-PTLE0C3\\james",
 	"module": "dist/url-data.esm.js",
 	"size-limit": [
 		{
@@ -50,5 +57,8 @@
 		"tsdx": "^0.14.1",
 		"tslib": "^2.3.1",
 		"typescript": "^3.9.10"
+	},
+	"dependencies": {
+		"@restspace/core": "^0.1.0"
 	}
 }

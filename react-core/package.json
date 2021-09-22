@@ -1,6 +1,14 @@
 {
 	"version": "0.1.0",
 	"license": "MIT",
+	"author": {
+		"name": "James Ellis-Jones",
+		"email": "james@restspace.io"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/restspace/rs-sdk/tree/master/react-core"
+	},
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
 	"files": [
@@ -34,7 +42,6 @@
 		"trailingComma": "es5"
 	},
 	"name": "@restspace/react-core",
-	"author": "DESKTOP-PTLE0C3\\james",
 	"module": "dist/react-core.esm.js",
 	"size-limit": [
 		{
@@ -59,6 +66,7 @@
 		"typescript": "^3.9.10"
 	},
 	"dependencies": {
+		"@restspace/core": "^0.1.0",
 		"react-query": "^3.21.1"
 	}
 }

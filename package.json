@@ -1,7 +1,6 @@
 {
 	"name": "rs-sdk",
 	"workspaces": [
-		"core",
 		"react-core",
 		"sample",
 		"url-data",

@@ -1,29 +1,15 @@
 import { DirDescriptor } from "./DirDescriptor";
-import path from "path";
-import fs from "fs/promises";
-import fsbase from "fs";
+// import path from "path";
+// import fs from "fs/promises";
+// import fsbase from "fs";
 
-// this must be set in global space somehow
-export let RS_HOST: string = '<unknown>';
+export let RS_HOST: string = '<unset>';
 
 async function ensureHost() {
-  if (!RS_HOST) {
-    const test = async (p: string) => fs.access(p, fsbase.constants.R_OK).then(() => true).catch(() => false);
-    try {
-      let projectDir = path.dirname(module.paths[0]);
-      let exists: boolean;
-      let servicesPath: string;
-      do {
-        servicesPath = path.join(projectDir, "services.json");
-        exists = await test(servicesPath);
-        if (!exists) projectDir = path.resolve(projectDir, '..');
-      } while (!exists);
-      const servicesBuf = await fs.readFile(servicesPath);
-      const services = JSON.parse(servicesBuf.toString());
-      RS_HOST = services.base;
-    } catch (err) {
-      console.error(`Failed to read services.json: ${err}`);
-    }
+  if (RS_HOST === '<unset>') {
+    const resp = await fetch('/restspace.json');
+    const config = await resp.json();
+    RS_HOST = config.base;
   }
 }
 

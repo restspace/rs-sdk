@@ -3,7 +3,7 @@ import { SchemaSubmitForm } from "@restspace/schema-form";
 import React from "react";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { Comment, Post } from "./EditBlog";
+import { Comment, Post } from "../../serviceFiles/url-data-types/Post";
 
 export interface ViewBlogProps {
 	postDate: string;
@@ -19,10 +19,11 @@ const commentSchema = {
 
 export const ViewBlog = () => {
 	let { postDate } = useParams<ViewBlogProps>();
-	const { isLoading, isError, data, error } = useDataServiceQuery<Post>('/posts', postDate);
-	const mutPost = useDataServiceMutation('/posts', postDate);
+	const { isLoading, isError, data, error } = useDataServiceQuery<Post>('/post', postDate);
+	const mutPost = useDataServiceMutation('/post', postDate);
 
 	const onSubmit = async (submitted: object) => {
+		console.log('subm');
 		if (data) {
 			const comment = submitted as Comment;
 			const dt = new Date();
@@ -39,7 +40,7 @@ export const ViewBlog = () => {
 		<h1>{ data?.title }</h1>
 		<h2>{ data?.date }</h2>
 		<div>{ data?.body }</div>
-		{data?.comments?.length && <h2>Comments</h2>}
+		{(data?.comments?.length || 0) > 0 && <h2>Comments</h2>}
 		{data?.comments?.map(comment =>
 			<div>{comment.comment}</div>
 		)}

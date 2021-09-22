@@ -1,20 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDataServiceMutation } from "@restspace/react-url-data";
+import { useDataServiceMutation, useDataServiceQuery } from "@restspace/react-url-data";
 import { SchemaSubmitForm } from "@restspace/schema-form";
-
-export interface Comment {
-	date: string;
-	name: string;
-	comment: string;
-}
-
-export interface Post {
-	date: string;
-	title: string;
-	author?: string;
-	body: string;
-	comments: Comment[];
-}
+import { Post } from "../../serviceFiles/url-data-types/Post";
 
 export interface EditBlogProps {
 	editPostDate?: string;
@@ -22,30 +9,23 @@ export interface EditBlogProps {
 
 export const EditBlog = ({ editPostDate }: EditBlogProps) => {
 	const [ post, setPost ] = useState<Post>({ date: '', title: '', body: '', comments: [] });
-	const mutPost = useDataServiceMutation('/posts/', post.date);
+	const schemaQuery = useDataServiceQuery<any>('/post', '.schema.json');
+	const mutPost = useDataServiceMutation('/post/', post.date);
 
 	useEffect(() => {
-		mutPost.mutate(post);
+		if (post && post.date) mutPost.mutate(post);
 	}, [ post ]);
-
-	const blogSchema = {
-		type: "object",
-		properties: {
-			date: { type: "string", format: "date" },
-			title: { type: "string" },
-			author: { type: "string" },
-			body: { type: "string", editor: "textarea" }
-		}
-	}
+	
 	return (
 		<section>
 			<div>Create Blog</div>
-			<SchemaSubmitForm
-				schema={blogSchema}
+			<div></div>
+			{schemaQuery.isSuccess && <SchemaSubmitForm
+				schema={schemaQuery.data}
 				value={post}
 				makeSubmitLink={(onclick) => <button type="button" onClick={onclick}>SUBMIT</button>}
 				onSubmit={async (post: Post) => { setPost(post); return true; }}
-			/>
+			/>}
 		</section>
 	);
 };

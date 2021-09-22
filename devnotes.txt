@@ -8,3 +8,10 @@ for changes to a project to appear in one which depends on it, rebuild the proje
 similarly for npm installs to affect auto error checking, restart the extension host
 
 rebuilding a package while React running will break with compilation error, needs to restart
+
+publish:
+ensure any workspace dependencies are changed to registry package dependencies -
+ npm i <registry package dep> -w <workspace>
+ restart the extension host to fix VS code errors
+update version
+npm publish --access public
