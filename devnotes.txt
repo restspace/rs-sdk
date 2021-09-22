@@ -14,4 +14,7 @@ ensure any workspace dependencies are changed to registry package dependencies -
  npm i <registry package dep> -w <workspace>
  restart the extension host to fix VS code errors
 update version
+npm login
+cd <package>
+npm run build
 npm publish --access public
